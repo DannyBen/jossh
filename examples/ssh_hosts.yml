@@ -1,0 +1,12 @@
+# Supports any of the attributes available in Net::SSH#start
+# http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
+
+:localhost:
+  :host: 'localhost'
+  :user: 'vagrant'
+  :password: 'SECRET'
+
+:production:
+  :host: 'production.myserver.com'
+  :user: 'josh'
+  :forward_agent: true

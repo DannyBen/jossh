@@ -78,4 +78,4 @@ touch 'tmp/restart.txt'
 echo "-> Done"
 ```
 
-See also: The examples folder
+See also: The [examples folder](https://github.com/DannyBen/jossh/tree/master/examples)

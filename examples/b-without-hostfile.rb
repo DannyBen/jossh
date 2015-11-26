@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # This example avoids using any external file for defining the host.
-# See the previous example for comparison
+# See the previous example for comparison.
 
 require 'jossh'
 
