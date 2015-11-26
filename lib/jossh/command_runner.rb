@@ -3,6 +3,9 @@ require "yaml"
 
 module Jossh
 
+  # CommandRunner is the primary class in the Jossh module. It is responsible
+  # for providing the backend for all api methods.
+  #
   class CommandRunner
 
     def ssh!(hostspec, script)
