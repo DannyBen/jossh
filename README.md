@@ -46,9 +46,9 @@ Usage: jossh <host> <script>
             quotes are only needed if you include multiple commands
             with && or semicolor (;)
 
-Examples: jossh localhost git status
-          jossh localhost "cd ~ && ls -l"
-          jossh localhost deploy
+Examples: jossh production git status
+          jossh stage "cd ~ && ls -l"
+          jossh devhost deploy
 ```
 
 ## Library Usage

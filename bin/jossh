@@ -13,9 +13,9 @@ def usage
   " <script> - can be either a filename or one or more direct command\n" + 
   "            quotes are only needed if you include multiple commands\n" + 
   "            with && or semicolor (;)\n\n" +
-  "Examples: jossh localhost git status\n" +
-  "          jossh localhost \"cd ~ && ls -l\"\n" +
-  "          jossh localhost deploy"
+  "Examples: jossh production git status\n" +
+  "          jossh stage \"cd ~ && ls -l\"\n" +
+  "          jossh devhost deploy"
 end
 
 def run
