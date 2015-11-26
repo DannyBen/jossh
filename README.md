@@ -1,6 +1,11 @@
 Jossh - Your SSH Buddy
 ======================
 
+[![Gem Version](https://badge.fury.io/rb/jossh.svg)](http://badge.fury.io/rb/jossh)
+[![Code Climate](https://codeclimate.com/github/DannyBen/jossh/badges/gpa.svg)](https://codeclimate.com/github/DannyBen/jossh)
+[![Dependency Status](https://gemnasium.com/DannyBen/jossh.svg)](https://gemnasium.com/DannyBen/jossh)
+
+
 Ruby SSH functions for easier and prettier remote deployment and automation.
 
 ## Install

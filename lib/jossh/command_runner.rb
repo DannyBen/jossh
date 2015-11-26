@@ -17,7 +17,7 @@ module Jossh
       user     = hostspec.delete :user
 
       Net::SSH.start( host, user, hostspec ) do |ssh| 
-        ssh.exec! script do |ch, stream, data|
+        ssh.exec! script do |_ch, _stream, data|
           callback.call data
         end
       end
