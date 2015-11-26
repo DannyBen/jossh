@@ -6,7 +6,10 @@ Jossh - Your SSH Buddy
 [![Dependency Status](https://gemnasium.com/DannyBen/jossh.svg)](https://gemnasium.com/DannyBen/jossh)
 
 
-Ruby SSH functions for easier and prettier remote deployment and automation.
+**Jossh** is
+
+- a command line utility for running local scripts and comments over SSH.
+- a ruby library for easier and prettier SSH deployment and automation.
 
 ## Install
 
