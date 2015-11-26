@@ -1,0 +1,9 @@
+require "run-gem-dev"
+
+name    "Jossh Runfile"
+summary "Runfile tasks for building the Jossh gem"
+version Jossh::VERSION
+
+RunGemDev::gem_tasks 'jossh'
+RunGemDev::minitest_tasks
+RunGemDev::rdoc_tasks

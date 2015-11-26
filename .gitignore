@@ -1,0 +1,7 @@
+dev
+doc
+gems
+Gemfile.lock
+*.gem
+*.sublime*
+ssh_hosts.yml
