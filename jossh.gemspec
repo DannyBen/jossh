@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Danny Ben Shitrit"]
   s.email       = 'db@dannyben.com'
   s.files       = Dir['README.md', 'lib/**/*.rb']
+  s.executables = ["jossh"]
   s.homepage    = 'https://github.com/DannyBen/jossh'
   s.license     = 'MIT'
 

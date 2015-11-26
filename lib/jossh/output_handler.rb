@@ -25,6 +25,7 @@ module Jossh
     def pretty_puts(lines)
       lines = lines.split("\n") if lines.is_a? String
       lines.each do |line|
+        line = line.rstrip.gsub /\t/, "        "
         if line =~ /^\-+> (.*?)$/
           puts_status $1
         elsif line =~ /^! (.*?)$/
@@ -56,7 +57,7 @@ module Jossh
     end
 
     def puts_stdout(msg)
-      say "       #{msg}"
+      puts "       #{msg}"
     end
 
   end

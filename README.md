@@ -29,8 +29,29 @@ Or install manually
 6. Allows storing host specifications in a YAML file.
 7. Supports all options available in `Net::SSH#start`.
 8. Prints output Heroku-style.
+9. Provides a command line interface - `jossh <host> <script>` 
 
-## Usage
+## Command Line Usage
+
+After installing, you can call `jossh` from the command line to run arbitrary
+commands or a local script over SSH.
+
+```
+$ jossh
+
+Usage: jossh <host> <script>
+
+ <host>   - any key available in ./ssh_hosts.yml
+ <script> - can be either a filename or one or more direct command
+            quotes are only needed if you include multiple commands
+            with && or semicolor (;)
+
+Examples: jossh localhost git status
+          jossh localhost "cd ~ && ls -l"
+          jossh localhost deploy
+```
+
+## Library Usage
 
 ### Example 1: Host specifications in a YAML file
 
@@ -95,3 +116,5 @@ If you wish to use a different location, use the `ssh_hostfile` method:
 ssh_hostfile "my_hosts.yml"
 ssh! :myhost, 'ls'
 ```
+
+See [ssh_hosts.example.yml](https://github.com/DannyBen/jossh/blob/master/ssh_hosts.example.yml) as an example.
