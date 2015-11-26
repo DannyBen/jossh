@@ -8,6 +8,10 @@ module Jossh
   #
   class CommandRunner
 
+    def self.instance
+      @@instance ||= self.new
+    end
+
     def ssh!(hostspec, script)
       ssh hostspec, script, callback: OutputHandler.new.method(:pretty_puts)
     end
@@ -32,6 +36,10 @@ module Jossh
 
     def ssh_script(hostspec, script, callback: nil)
       ssh hostspec, load_script(script), callback: callback
+    end
+
+    def ssh_hostfile(file)
+      @hostfile = file
     end
 
     private

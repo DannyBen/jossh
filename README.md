@@ -84,3 +84,14 @@ echo "-> Done"
 ```
 
 See also: The [examples folder](https://github.com/DannyBen/jossh/tree/master/examples)
+
+## Host specification file
+
+Host specifications should be configured in `ssh_hosts.yml` by default.
+
+If you wish to use a different location, use the `ssh_hostfile` method:
+
+```ruby
+ssh_hostfile "my_hosts.yml"
+ssh! :myhost, 'ls'
+```

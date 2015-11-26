@@ -1,0 +1,6 @@
+# Supports any of the attributes available in Net::SSH#start
+# http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
+
+:myhost:
+  :host: 'localhost'
+  :user: 'vagrant'

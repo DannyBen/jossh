@@ -32,7 +32,7 @@ module Jossh
   #   ssh :localhost, "ls -l", method: my_puts
   #
   def ssh(hostspec, script, callback: nil)
-    CommandRunner.new.ssh hostspec, script, callback: callback
+    CommandRunner.instance.ssh hostspec, script, callback: callback
   end
 
   # Same as +ssh+, only this will print a pretty output. 
@@ -40,7 +40,7 @@ module Jossh
   # This method accepts only +hostspec+ and +script+ (no +callback+).
   #
   def ssh!(hostspec, script)
-    CommandRunner.new.ssh! hostspec, script
+    CommandRunner.instance.ssh! hostspec, script
   end
 
   # Same as +ssh+, only load commands from a file.
@@ -62,7 +62,7 @@ module Jossh
   #   ssh_script :localhost, "deploy"
   #
   def ssh_script(hostspec, script, callback: nil)
-    CommandRunner.new.ssh_script hostspec, script, callback: callback
+    CommandRunner.instance.ssh_script hostspec, script, callback: callback
   end
 
   # Same as +ssh_script+, only this will print a pretty output. 
@@ -70,7 +70,11 @@ module Jossh
   # This method accepts only +hostspec+ and +script+ (no +callback+).
   #
   def ssh_script!(hostspec, script)
-    CommandRunner.new.ssh_script! hostspec, script
+    CommandRunner.instance.ssh_script! hostspec, script
+  end
+
+  def ssh_hostfile(file)
+    CommandRunner.instance.ssh_hostfile file
   end
 
 end
