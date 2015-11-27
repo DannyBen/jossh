@@ -1,9 +1,12 @@
-echo '-> Will exit on 3'
+echo '-> Status example'
+echo '$ command example'
+echo '$ sleep 1'
 sleep 1
-echo 'One'
+echo '! ERROR example'
 sleep 1
-echo 'Two'
-sleep 1
-echo 'Three'
+echo 'regular output'
+echo '  indentation'
+echo '    is'
+echo '      kept'
 sleep 1
 echo '-> Done'
