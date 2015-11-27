@@ -17,15 +17,15 @@ module Jossh
     end
 
     def ssh(hostspec, script, callback: nil)
-      callback ||= method :puts
+      callback ||= method :simple_puts
       script   = script.join "\n" if script.is_a? Array
       hostspec = load_spec(hostspec) if hostspec.is_a? Symbol
       host     = hostspec.delete :host
       user     = hostspec.delete :user
 
       Net::SSH.start( host, user, hostspec ) do |ssh| 
-        ssh.exec! script do |_ch, _stream, data|
-          callback.call data
+        ssh.exec! script do |_ch, stream, data|
+          callback.call data, stream
         end
       end
     end
@@ -40,12 +40,24 @@ module Jossh
 
     def ssh_hostfile(file)
       @hostfile = file
+
+      # force reload in case we were called after some ssh call was
+      # initiated (e.g. in tests...)
+      @ssh_hosts = nil 
     end
 
     private
 
+    def simple_puts(data, stream)
+      if stream == :stderr
+        STDERR.puts data
+      else
+        puts data
+      end
+    end
+
     def load_spec(key)
-      ssh_hosts[key] or abort "Cannot find :#{key} in #{hostfile}"
+      ssh_hosts[key] or raise "Cannot find :#{key} in #{hostfile}"
     end
 
     def ssh_hosts
@@ -53,16 +65,12 @@ module Jossh
     end
 
     def load_ssh_hosts
-      File.exist? hostfile or abort "Cannot find #{hostfile}"
+      File.exist? hostfile or raise "Cannot find #{hostfile}"
       YAML.load_file hostfile
     end
 
     def hostfile
       @hostfile ||= 'ssh_hosts.yml'
-    end
-
-    def hostfile=(file)
-      @hostfile = file
     end
 
     def load_script(script)

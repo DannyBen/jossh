@@ -22,11 +22,13 @@ module Jossh
     # ==== Credits:
     # This function was inspired by Heroku and based on code from Mina[https://github.com/mina-deploy/mina/blob/master/lib/mina/output_helpers.rb]
     #
-    def pretty_puts(lines)
+    def pretty_puts(lines, stream=nil)
       lines = lines.split("\n") if lines.is_a? String
       lines.each do |line|
-        line = line.rstrip.gsub /\t/, "        "
-        if line =~ /^\-+> (.*?)$/
+        line = line.rstrip.gsub(/\t/, "        ")
+        if stream == :stderr
+          puts_stderr line
+        elsif line =~ /^\-+> (.*?)$/
           puts_status $1
         elsif line =~ /^! (.*?)$/
           puts_error $1
