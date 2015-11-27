@@ -25,6 +25,6 @@ Options:
 
 Examples: 
   jossh :production "git status"
-  jossh jack@server.com \"cd ~ && ls -l\"
+  jossh jack@server.com "cd ~ && ls -l"
   jossh server.com deploy
 

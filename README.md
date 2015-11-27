@@ -40,24 +40,38 @@ After installing, you can call `jossh` from the command line to run arbitrary
 commands or a local script over SSH.
 
 ```
-$ jossh
+$ jossh -h
 
-Usage: jossh <host> <script>
-       jossh -h
+Jossh
 
- <host> can be:
-   - :symbol    - in this case we will look in ./ssh_hosts.yml
-   - host       - in this case we will use the current logged in user
-   - user@host
+Usage:
+  jossh <host> <script>
+  jossh -m | --make-hostfile
+  jossh -h | --help
+  jossh -v | --version
 
- <script> can be:
-   - a filename
-   - one or more direct command - quotes are only needed if you include
-     multiple commands with && or semicolor (;)
+Arguments:
+  <host>
+    can be:
+    - :symbol    : in this case we will look in ./ssh_hosts.yml
+    - host       : in this case we will use the current logged in user
+    - user@host
 
-Examples: jossh :production git status
-          jossh jack@server.com "cd ~ && ls -l"
-          jossh server.com deploy
+  <script>
+    can be:
+    - a filename
+    - one or more direct command
+
+Options:
+  -m --make-hostfile     Generate a template ssh_hosts.yml
+  -h --help              Show this screen
+  -v --version           Show version
+
+Examples:
+  jossh :production "git status"
+  jossh jack@server.com "cd ~ && ls -l"
+  jossh server.com deploy
+
 
 ```
 
@@ -126,5 +140,9 @@ If you wish to use a different location, use the `ssh_hostfile` method:
 ssh_hostfile "my_hosts.yml"
 ssh! :myhost, 'ls'
 ```
+
+You can ask Jossh to create a sample file for you by running:
+
+    $ jossh --make-hostfile
 
 See [ssh_hosts.example.yml](https://github.com/DannyBen/jossh/blob/master/ssh_hosts.example.yml) as an example.
