@@ -1,10 +1,18 @@
 Running Tests
 =============
 
-In order to run tests you need to prepare the `ssh_hosts.yml` file at the
-root folder of the repository (this file is .gitignored).
+In order to run tests you need to prepare host configuration files at the root 
+directory or the repository:
 
-It needs to have a `:localhost` key that defines the host you want to test
+	`ssh_hosts.yml` 
+	`custom_hosts.yml`
+
+Both these files need to be identical and are .gitignored.
+
+The reason we need two files, is that one of the tests is testing the 
+feature that allows using a custom hosts filename.
+
+The tests look for a `:localhost` key that defines the host you want to test
 against.
 
 Example

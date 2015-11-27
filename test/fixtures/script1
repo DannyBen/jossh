@@ -6,4 +6,5 @@ echo '  indentation'
 echo '    is'
 echo '      kept'
 echo -e '\ttabs are converted to 8 spaces'
+echo "stderr output" 1>&2
 echo '-> Done'
