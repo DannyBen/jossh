@@ -27,12 +27,14 @@ class TestApi < MiniTest::Test
     assert_match expected, run_ssh!(commands)
   end
 
-  def run_ssh(cmd)
-    capture_stdout { ssh :localhost, cmd }
+  def test_script
+    expected = "\e[0;32m----->\e[0m Status example\n       \e[0;35m$ command example\n\e[0m  \e[0;33m!\e[0m    \e[0;31mERROR example\n\e[0m       regular output\n         indentation\n           is\n             kept\n               tabs are converted to 8 spaces\n\e[0;32m----->\e[0m Done\n"
+    assert_match expected, run_ssh_script('script1')
   end
 
-  def run_ssh!(cmd)
-    capture_stdout { ssh! :localhost, cmd }
+  def test_binary
+    expected = "-----> Status example\n       $ command example\n  !    ERROR example\n       regular output\n         indentation\n           is\n             kept\n               tabs are converted to 8 spaces\n-----> Done\n"
+    assert_match expected, run_bin('script1')
   end
 
 end

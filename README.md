@@ -43,15 +43,22 @@ commands or a local script over SSH.
 $ jossh
 
 Usage: jossh <host> <script>
+       jossh -h
 
- <host>   - any key available in ./ssh_hosts.yml
- <script> - can be either a filename or one or more direct command
-            quotes are only needed if you include multiple commands
-            with && or semicolor (;)
+ <host> can be:
+   - :symbol    - in this case we will look in ./ssh_hosts.yml
+   - host       - in this case we will use the current logged in user
+   - user@host
 
-Examples: jossh production git status
-          jossh stage "cd ~ && ls -l"
-          jossh devhost deploy
+ <script> can be:
+   - a filename
+   - one or more direct command - quotes are only needed if you include
+     multiple commands with && or semicolor (;)
+
+Examples: jossh :production git status
+          jossh jack@server.com "cd ~ && ls -l"
+          jossh server.com deploy
+
 ```
 
 ## Library Usage
