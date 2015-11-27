@@ -1,62 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'jossh'
-require 'etc'
-
-# for dev (not needed in most cases)
-# require File.dirname(__FILE__) + "/../lib/jossh"
-
 trap(:INT) { abort "\r\nGoodbye" }
+include Jossh
+BinHandler.new.handle ARGV
 
-def short_usage
-  "\nUsage: jossh <host> <script>\n" +
-  "       jossh -h\n\n" 
-end
-
-def usage
-  short_usage +
-  " <host> can be:\n"+
-  "   - :symbol    - in this case we will look in ./ssh_hosts.yml\n" +
-  "   - host       - in this case we will use the current logged in user\n" +
-  "   - user@host\n\n" +
-  " <script> can be:\n" +
-  "   - a filename\n" + 
-  "   - one or more direct command - quotes are only needed if you include\n" +
-  "     multiple commands with && or semicolor (;)\n\n" +
-  "Examples: jossh :production git status\n" +
-  "          jossh jack@server.com \"cd ~ && ls -l\"\n" +
-  "          jossh server.com deploy"
-end
-
-def run
-  ARGV.empty? and abort short_usage
-  ARGV[0] == '-h' and abort usage
-  host   = ARGV.shift.dup
-  script = ARGV.join ' '
-  host and script or abort short_usage
-  host = standardize_host host
-  begin
-    if File.exist? script
-      ssh_script! host, script
-    else
-      ssh host, script
-    end
-  rescue => e
-    abort e.message
-  end
-end
-
-def standardize_host(str)
-  if str[0] == ':' 
-    str[0] = ''
-    return str.to_sym
-  end
-
-  if str =~ /^(.+)@(.+)$/
-    return { user: $1, host: $2 }
-  end
-
-  return { user: Etc.getlogin, host: str }
-end
-
-run

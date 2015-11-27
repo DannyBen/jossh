@@ -1,0 +1,30 @@
+Jossh
+
+Usage:
+  jossh <host> <script>
+  jossh -m | --make-hostfile
+  jossh -h | --help 
+  jossh -v | --version
+
+Arguments:
+  <host>
+    can be:
+    - :symbol    : in this case we will look in ./ssh_hosts.yml
+    - host       : in this case we will use the current logged in user
+    - user@host
+
+  <script> 
+    can be:
+    - a filename
+    - one or more direct command
+
+Options:
+  -m --make-hostfile     Generate a template ssh_hosts.yml 
+  -h --help              Show this screen
+  -v --version           Show version
+
+Examples: 
+  jossh :production "git status"
+  jossh jack@server.com \"cd ~ && ls -l\"
+  jossh server.com deploy
+
