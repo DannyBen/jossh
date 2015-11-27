@@ -48,9 +48,4 @@ class TestApi < MiniTest::Test
     ssh_hostfile "ssh_hosts.yml"
   end
 
-  def test_binary
-    expected = "-----> Status example\n       $ command example\n  !    ERROR example\n       regular output\n         indentation\n           is\n             kept\n               tabs are converted to 8 spaces\n-----> Done\n       stderr output\n"
-    assert_match expected, run_bin('script1')
-  end
-
 end

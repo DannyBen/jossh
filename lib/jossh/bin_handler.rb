@@ -8,7 +8,7 @@ module Jossh
 
     def handle(args)
       begin
-        execute Docopt::docopt(doc)
+        execute Docopt::docopt(doc, argv: args)
       rescue Docopt::Exit => e
         puts e.message
       end
@@ -31,9 +31,11 @@ module Jossh
         else
           ssh host, script
         end
+      # :nocov:
       rescue => e
         abort e.message
       end
+      # :nocov:
     end
 
     def standardize_host(str)
@@ -42,11 +44,14 @@ module Jossh
         return str.to_sym
       end
 
+      # :nocov:
+      # We DO have a test for these two cases, requires manual password type
       if str =~ /^(.+)@(.+)$/
         return { user: $1, host: $2 }
       end
 
       return { user: Etc.getlogin, host: str }
+      # :nocov:
     end
 
     def make_hostfile
