@@ -39,41 +39,38 @@ Or install manually
 After installing, you can call `jossh` from the command line to run arbitrary
 commands or a local script over SSH.
 
-```
-$ jossh -h
+  $ jossh -h
 
-Jossh
+  Jossh
 
-Usage:
-  jossh <host> <script>
-  jossh -m | --make-hostfile
-  jossh -h | --help
-  jossh -v | --version
+  Usage:
+    jossh <host> <script>
+    jossh -m | --make-hostfile
+    jossh -h | --help
+    jossh -v | --version
 
-Arguments:
-  <host>
-    can be:
-    - :symbol    : in this case we will look in ./ssh_hosts.yml
-    - host       : in this case we will use the current logged in user
-    - user@host
+  Arguments:
+    <host>
+      can be:
+      - :symbol    : in this case we will look in ./ssh_hosts.yml
+      - host       : in this case we will use the current logged in user
+      - user@host
 
-  <script>
-    can be:
-    - a filename
-    - one or more direct command
+    <script>
+      can be:
+      - a filename
+      - one or more direct command
 
-Options:
-  -m --make-hostfile     Generate a template ssh_hosts.yml
-  -h --help              Show this screen
-  -v --version           Show version
+  Options:
+    -m --make-hostfile     Generate a template ssh_hosts.yml
+    -h --help              Show this screen
+    -v --version           Show version
 
-Examples:
-  jossh :production "git status"
-  jossh jack@server.com "cd ~ && ls -l"
-  jossh server.com deploy
+  Examples:
+    jossh :production "git status"
+    jossh jack@server.com "cd ~ && ls -l"
+    jossh server.com deploy
 
-
-```
 
 ## Library Usage
 
@@ -132,12 +129,21 @@ See also: The [examples folder](https://github.com/DannyBen/jossh/tree/master/ex
 
 ## Host specification file
 
-Host specifications should be configured in `ssh_hosts.yml` by default.
+When using a :symbol as the host name, Jossh will look for a YAML 
+configuration file named `ssh_hosts.yml`. The file is expected to be either
+in the current directory or the user's home directory.
 
-If you wish to use a different location, use the `ssh_hostfile` method:
+If you wish to use a different filename or location, use the `ssh_hostfile` 
+method. If you specify only a filename or a relative path, Jossh will still 
+look for this file in both the current directory and user's home directory.
 
 ```ruby
-ssh_hostfile "my_hosts.yml"
+# Specify exact location
+ssh_hostfile "/etc/my_hosts.yml"
+ssh! :myhost, 'ls'
+
+# Look for ./configs/hosts.yml or ~/configs/hosts.yml
+ssh_hostfile "configs/hosts.yml"
 ssh! :myhost, 'ls'
 ```
 

@@ -65,12 +65,21 @@ module Jossh
     end
 
     def load_ssh_hosts
-      File.exist? hostfile or raise "Cannot find #{hostfile}"
-      YAML.load_file hostfile
+      if File.exist? hostfile 
+        YAML.load_file hostfile
+      elsif hostfile[0] != '/' and File.exist? user_hostfile
+        YAML.load_file user_hostfile
+      else
+        raise "Cannot find #{hostfile} or #{user_hostfile}"
+      end
     end
 
     def hostfile
       @hostfile ||= 'ssh_hosts.yml'
+    end
+
+    def user_hostfile
+      "#{Dir.home}/#{hostfile}"
     end
 
     def load_script(script)
