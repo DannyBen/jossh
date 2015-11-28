@@ -26,7 +26,7 @@ module Jossh
   #
   #   ssh { host: 'localhost', user: 'vagrant' }, "ls -l"
   #
-  #   def my_puts(data)
+  #   def my_puts(data, stream)
   #     puts "> #{data}"
   #   end
   #   ssh :localhost, "ls -l", method: my_puts
@@ -73,6 +73,13 @@ module Jossh
     CommandRunner.instance.ssh_script! hostspec, script
   end
 
+  # Set the name of the hostfile
+  #
+  # ==== Params:
+  #
+  # +file+:: 
+  #   Path to a YAML file
+  #
   def ssh_hostfile(file)
     CommandRunner.instance.ssh_hostfile file
   end
