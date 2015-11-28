@@ -39,37 +39,39 @@ Or install manually
 After installing, you can call `jossh` from the command line to run arbitrary
 commands or a local script over SSH.
 
-  $ jossh -h
+    $ jossh -h
 
-  Jossh
+    Jossh
 
-  Usage:
-    jossh <host> <script>
-    jossh -m | --make-hostfile
-    jossh -h | --help
-    jossh -v | --version
+    Usage:
+      jossh <host> <script>
+      jossh -m | --make-hostfile
+      jossh -l | --list
+      jossh -h | --help
+      jossh -v | --version
 
-  Arguments:
-    <host>
-      can be:
-      - :symbol    : in this case we will look in ./ssh_hosts.yml
-      - host       : in this case we will use the current logged in user
-      - user@host
+    Arguments:
+      <host>
+        can be:
+        - :symbol    : in this case we will look in ./ssh_hosts.yml
+        - host       : in this case we will use the current logged in user
+        - user@host
 
-    <script>
-      can be:
-      - a filename
-      - one or more direct command
+      <script>
+        can be:
+        - a filename
+        - one or more direct command
 
-  Options:
-    -m --make-hostfile     Generate a template ssh_hosts.yml
-    -h --help              Show this screen
-    -v --version           Show version
+    Options:
+      -m --make-hostfile     Generate a template ssh_hosts.yml
+      -l --list              Show hosts in ./ssh_hosts.yml or ~/ssh_hosts.yml
+      -h --help              Show this screen
+      -v --version           Show version
 
-  Examples:
-    jossh :production "git status"
-    jossh jack@server.com "cd ~ && ls -l"
-    jossh server.com deploy
+    Examples:
+      jossh :production "git status"
+      jossh jack@server.com "cd ~ && ls -l"
+      jossh server.com deploy
 
 
 ## Library Usage

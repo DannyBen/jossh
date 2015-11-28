@@ -3,6 +3,7 @@ Jossh
 Usage:
   jossh <host> <script>
   jossh -m | --make-hostfile
+  jossh -l | --list
   jossh -h | --help 
   jossh -v | --version
 
@@ -20,6 +21,7 @@ Arguments:
 
 Options:
   -m --make-hostfile     Generate a template ssh_hosts.yml 
+  -l --list              Show hosts in ./ssh_hosts.yml or ~/ssh_hosts.yml
   -h --help              Show this screen
   -v --version           Show version
 

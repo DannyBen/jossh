@@ -42,4 +42,20 @@ class TestBin < MiniTest::Test
     end
   end
 
+  def test_list_hosts
+    actual = run_bin(["-l"])
+    assert_contains 'Using: ssh_hosts.yml', actual
+    assert_contains ':localhost', actual
+  end
+
+  def test_list_not_found
+    begin
+      FileUtils.mv 'ssh_hosts.yml', 'ssh_hosts.bak'
+      actual = run_bin(["-l"])
+      assert_contains 'Cannot find', actual
+    ensure
+      FileUtils.mv 'ssh_hosts.bak', 'ssh_hosts.yml' if File.exist? 'ssh_hosts.bak'
+    end
+  end
+
 end

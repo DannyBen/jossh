@@ -1,10 +1,13 @@
 require 'etc'
 require 'docopt'
+require 'colsole'
 require 'fileutils'
 
 module Jossh
 
   class BinHandler
+
+    include Colsole
 
     def handle(args)
       begin
@@ -17,8 +20,9 @@ module Jossh
     private
 
     def execute(args)
-      return make_hostfile if args['--make-hostfile']
       return show_version if args['--version']
+      return make_hostfile if args['--make-hostfile']
+      return list_hosts if args['--list']
       handle_script args['<host>'].dup, args['<script>']
     end
 
@@ -58,7 +62,19 @@ module Jossh
       abort "ssh_hosts.yml already exists" if File.exist?('ssh_hosts.yml')
       FileUtils.copy template('ssh_hosts.yml'), './ssh_hosts.yml'
       File.exist? './ssh_hosts.yml' or abort "Unable to create ssh_hosts.yml"
-      puts "Created ssh_hosts.yml" 
+      say "!txtgrn!Created ssh_hosts.yml" 
+    end
+
+    def list_hosts
+      runner = CommandRunner.new
+      if runner.active_hostfile
+        say "!txtgrn!Using: #{runner.active_hostfile}\n"
+        runner.ssh_hosts.each do |key, spec|
+          say "  :#{key.to_s.ljust(14)} = !txtblu!#{spec[:user]}!txtrst!@!txtylw!#{spec[:host]}"
+        end
+      else
+        say "!txtred!Cannot find ssh_hosts.yml or ~/ssh_hosts.yml"
+      end
     end
 
     def show_version

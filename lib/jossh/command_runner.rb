@@ -47,6 +47,20 @@ module Jossh
       @ssh_hosts = nil 
     end
 
+    def ssh_hosts
+      @ssh_hosts ||= load_ssh_hosts
+    end
+
+    def active_hostfile
+      if File.exist? hostfile 
+        hostfile
+      elsif hostfile[0] != '/' and File.exist? user_hostfile
+        user_hostfile
+      else
+        false
+      end
+    end
+
     private
 
     def simple_puts(data, stream)
@@ -61,15 +75,9 @@ module Jossh
       ssh_hosts[key] or raise "Cannot find :#{key}"
     end
 
-    def ssh_hosts
-      @ssh_hosts ||= load_ssh_hosts
-    end
-
     def load_ssh_hosts
-      if File.exist? hostfile 
-        YAML.load_file hostfile
-      elsif hostfile[0] != '/' and File.exist? user_hostfile
-        YAML.load_file user_hostfile
+      if active_hostfile
+        YAML.load_file active_hostfile
       else
         raise "Cannot find #{hostfile} or #{user_hostfile}"
       end
