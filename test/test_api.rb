@@ -40,12 +40,21 @@ class TestApi < MiniTest::Test
   def test_custom_hostfile
     ssh_hostfile "custom_hosts.yml"
     assert_match /^hello$/, run_ssh("echo 'hello'")
+    ssh_hostfile :default
+  end
+
+  def test_user_hostfile
+    ssh_hostfile 'ssh_hosts_test.yml'
+    create_user_hostfile
+    assert_match /^hello$/, run_ssh("echo 'hello'", host: :fairlylocal)
+    remove_user_hostfile
+    ssh_hostfile :default
   end
 
   def test_invalid_hostfile
     ssh_hostfile "no_such_file.yml"
     assert_raises(RuntimeError) { run_ssh("echo 'hello'") }
-    ssh_hostfile "ssh_hosts.yml"
+    ssh_hostfile :default
   end
 
 end

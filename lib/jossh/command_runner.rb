@@ -39,6 +39,7 @@ module Jossh
     end
 
     def ssh_hostfile(file)
+      file = 'ssh_hosts.yml' if file == :default
       @hostfile = file
 
       # force reload in case we were called after some ssh call was
@@ -57,7 +58,7 @@ module Jossh
     end
 
     def load_spec(key)
-      ssh_hosts[key] or raise "Cannot find :#{key} in #{hostfile}"
+      ssh_hosts[key] or raise "Cannot find :#{key}"
     end
 
     def ssh_hosts

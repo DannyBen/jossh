@@ -25,20 +25,20 @@ def capture_stdout
   end
 end
 
-def run_ssh(cmd)
-  capture_stdout { ssh :localhost, cmd }
+def run_ssh(cmd, host: :localhost)
+  capture_stdout { ssh host, cmd }
 end
 
-def run_ssh!(cmd)
-  capture_stdout { ssh! :localhost, cmd }
+def run_ssh!(cmd, host: :localhost)
+  capture_stdout { ssh! host, cmd }
 end
 
-def run_ssh_script(script)
-  capture_stdout { ssh_script :localhost, "test/fixtures/#{script}" }
+def run_ssh_script(script, host: :localhost)
+  capture_stdout { ssh_script host, "test/fixtures/#{script}" }
 end
 
-def run_ssh_script!(script)
-  capture_stdout { ssh_script! :localhost, "test/fixtures/#{script}" }
+def run_ssh_script!(script, host: :localhost)
+  capture_stdout { ssh_script! host, "test/fixtures/#{script}" }
 end
 
 def run_bin(args=[])
@@ -52,3 +52,16 @@ def run_external_bin(args='')
   `jossh #{args}`
 end
 
+def create_user_hostfile
+  content = File.read 'ssh_hosts.yml'
+  content.gsub!(":localhost:", ":fairlylocal:")
+  File.write user_hostfile, content  
+end
+
+def remove_user_hostfile
+  File.exist? user_hostfile and FileUtils.rm user_hostfile
+end
+
+def user_hostfile
+  "#{Dir.home}/ssh_hosts_test.yml"
+end
