@@ -17,6 +17,11 @@ class TestBin < MiniTest::Test
     assert_contains expected, run_bin([":localhost", "test/fixtures/script1"])
   end
 
+  def test_script_with_arguments
+    expected = "alpha: hello w o r l d\n       bravo: hello w o r l d\n       charlie:\n"
+    assert_contains expected, run_bin([":localhost", "test/fixtures/script2", "--", "hello", "w o r l d"])
+  end
+
   def test_command
     assert_contains 'roger rabbit', run_bin([":localhost", "echo 'roger rabbit'"])
   end

@@ -1,0 +1,3 @@
+echo "alpha: $1 $2"
+echo "bravo: $@"
+echo "charlie: $3"

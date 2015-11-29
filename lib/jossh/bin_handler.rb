@@ -23,15 +23,15 @@ module Jossh
       return show_version if args['--version']
       return make_hostfile if args['--make-hostfile']
       return list_hosts if args['--list']
-      handle_script args['<host>'].dup, args['<script>']
+      handle_script args['<host>'].dup, args['<script>'], arguments: args['<arguments>']
     end
 
-    def handle_script(host, script)
+    def handle_script(host, script, arguments: nil)
       host = standardize_host host
 
       begin
         if File.exist? script
-          ssh_script! host, script
+          ssh_script! host, script, arguments: arguments
         else
           ssh host, script
         end

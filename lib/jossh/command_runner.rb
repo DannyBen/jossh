@@ -30,12 +30,12 @@ module Jossh
       end
     end
 
-    def ssh_script!(hostspec, script)
-      ssh! hostspec, load_script(script)
+    def ssh_script!(hostspec, script, arguments: nil)
+      ssh! hostspec, load_script(script, arguments)
     end
 
-    def ssh_script(hostspec, script, callback: nil)
-      ssh hostspec, load_script(script), callback: callback
+    def ssh_script(hostspec, script, arguments: nil, callback: nil)
+      ssh hostspec, load_script(script, arguments), callback: callback
     end
 
     def ssh_hostfile(file)
@@ -91,11 +91,18 @@ module Jossh
       "#{Dir.home}/#{hostfile}"
     end
 
-    def load_script(script)
-      File.read script
+    def load_script(script, arguments=nil)
+      evaluate_args File.read(script), arguments
+    end
+
+    def evaluate_args(string, arguments)
+      return string unless arguments.is_a? Array and !arguments.empty?
+      all_arguments = arguments.map{|a| a =~ /\s/ ? "\"#{a}\"" : a}.join ' '
+      string.gsub!(/\$(\d)/) { arguments[$1.to_i - 1] }
+      string.gsub!(/\$[*|@]/, all_arguments)
+      string
     end
 
   end
 
 end
-

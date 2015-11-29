@@ -61,16 +61,16 @@ module Jossh
   #
   #   ssh_script :localhost, "deploy"
   #
-  def ssh_script(hostspec, script, callback: nil)
-    CommandRunner.instance.ssh_script hostspec, script, callback: callback
+  def ssh_script(hostspec, script, arguments: nil, callback: nil)
+    CommandRunner.instance.ssh_script hostspec, script, arguments: arguments, callback: callback
   end
 
   # Same as +ssh_script+, only this will print a pretty output. 
   #
   # This method accepts only +hostspec+ and +script+ (no +callback+).
   #
-  def ssh_script!(hostspec, script)
-    CommandRunner.instance.ssh_script! hostspec, script
+  def ssh_script!(hostspec, script, arguments: nil)
+    CommandRunner.instance.ssh_script! hostspec, script, arguments: arguments
   end
 
   # Set the name of the hostfile
