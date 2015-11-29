@@ -23,6 +23,7 @@ module Jossh
       return show_version if args['--version']
       return make_hostfile if args['--make-hostfile']
       return list_hosts if args['--list']
+      return edit_hosts if args['--edit-hostfile']
       handle_script args['<host>'].dup, args['<script>'], arguments: args['<arguments>']
     end
 
@@ -76,6 +77,17 @@ module Jossh
         say "!txtred!Cannot find ssh_hosts.yml or ~/ssh_hosts.yml"
       end
     end
+
+    # :nocov:
+    def edit_hosts
+      runner = CommandRunner.new
+      if runner.active_hostfile
+        exec "${EDITOR:-vi} #{runner.active_hostfile}"        
+      else
+        say "!txtred!Cannot find ssh_hosts.yml or ~/ssh_hosts.yml.\nRun 'jossh -m' to create one."
+      end
+    end
+    # :nocov:
 
     def show_version
       puts VERSION

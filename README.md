@@ -46,6 +46,7 @@ commands or a local script over SSH.
     Usage:
       jossh <host> <script> [-- <arguments>...]
       jossh -m | --make-hostfile
+      jossh -e | --edit-hostfile
       jossh -l | --list
       jossh -h | --help
       jossh -v | --version
@@ -70,6 +71,7 @@ commands or a local script over SSH.
 
     Options:
       -m --make-hostfile     Generate a template ssh_hosts.yml
+      -e --edit-hostfile     Open the currently used ssh_hosts.yml file for editing
       -l --list              Show hosts in ./ssh_hosts.yml or ~/ssh_hosts.yml
       -h --help              Show this screen
       -v --version           Show version
