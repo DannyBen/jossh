@@ -7,3 +7,12 @@ version Jossh::VERSION
 RunGemDev::gem_tasks 'jossh'
 RunGemDev::minitest_tasks
 RunGemDev::rdoc_tasks
+
+help   "Regenerate the command line output in the README file"
+action :patchme do
+  readme = File.read 'README.md'
+  usage  = `bundle exec jossh -h`
+  usage.gsub!(/^/, "    ")
+  readme.gsub!(/(\$ jossh -h)(.*)(---\s*)/m) { "#{$1}\n\n#{usage}#{$3}" }
+  File.write "README.md", readme
+end
