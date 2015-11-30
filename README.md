@@ -140,7 +140,7 @@ echo "-> Done"
 
 See also: The [examples folder](https://github.com/DannyBen/jossh/tree/master/examples)
 
-## Host specification file
+## Host Specification File
 
 When using a :symbol as the host name, Jossh will look for a YAML 
 configuration file named `ssh_hosts.yml`. The file is expected to be either
