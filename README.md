@@ -8,7 +8,7 @@ Jossh - Your SSH Buddy
 
 **Jossh** is
 
-- a command line utility for running local scripts and comments over SSH.
+- a command line utility for running local scripts and commands over SSH.
 - a ruby library for easier and prettier SSH deployment and automation.
 
 ## Install
@@ -32,7 +32,7 @@ Or install manually
 6. Allows storing host specifications in a YAML file.
 7. Supports all options available in `Net::SSH#start`.
 8. Prints output Heroku-style.
-9. Provides a command line interface - `jossh <host> <script>` 
+9. Has a command line interface - `jossh <host> <script>` 
 
 ## Command Line Usage
 
