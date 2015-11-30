@@ -1,9 +1,10 @@
+#
 # SSH Hosts File for Jossh
 #
-# Supports any of the attributes available in Net::SSH#start
+# Supports any of the attributes available in Net::SSH#start.
 # http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
 #
-# :host: and :user: are required, everything else is optional
+# :host: and :user: are required, everything else is optional.
 #
 
 :localhost:
@@ -19,3 +20,9 @@
   :password: 'when using user/password'
   :forward_agent: true
   :use_agent: true
+
+# You can supply an array pointing to multiple servers. 
+# Each array item should be a key of another host defined in this file.
+:all: 
+  - :localhost
+  - :production

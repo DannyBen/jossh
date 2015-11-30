@@ -25,14 +25,15 @@ Or install manually
 ## Features
 
 1. Allows running one or more commands over SSH.
-2. Allows running external local scripts remotely
-3. Has four commands: `ssh`, `ssh!`, `ssh_script` and `ssh_script!`. The 'bang' versions generate pretty and indented output.
-4. Uses a single SSH connection.
-5. Uses a simple hash for defining hosts.
-6. Allows storing host specifications in a YAML file.
-7. Supports all options available in `Net::SSH#start`.
-8. Prints output Heroku-style.
-9. Has a command line interface - `jossh <host> <script>` 
+2. Allows running local scripts remotely
+3. Allows running a script on multiple hosts.
+4. Has four commands: `ssh`, `ssh!`, `ssh_script` and `ssh_script!`. The 'bang' versions generate pretty and indented output.
+5. Uses a single SSH connection.
+6. Uses a simple hash for defining hosts.
+7. Allows storing host specifications in a YAML file.
+8. Supports all options available in `Net::SSH#start`.
+9. Prints output Heroku-style.
+10. Has a command line interface - `jossh <host> <script>` 
 
 ## Command Line Usage
 
@@ -41,47 +42,9 @@ commands or a local script over SSH.
 
     $ jossh -h
 
-    Jossh
+    hello
 
-    Usage:
-      jossh <host> <script> [-- <arguments>...]
-      jossh -m | --make-hostfile
-      jossh -e | --edit-hostfile
-      jossh -l | --list
-      jossh -h | --help
-      jossh -v | --version
-
-    Arguments:
-      <host>
-        can be:
-        - :symbol    : in this case we will look in ./ssh_hosts.yml
-        - host       : in this case we will use the current logged in user
-        - user@host
-
-      <script>
-        can be:
-        - a filename
-        - one or more direct command
-
-      <arguments>...
-        When specifying a filename as the <script>, you may also pass additional
-        arguments to it.
-        Use $1 - $9 in your script file to work with these arguments.
-        Use $@ (or $*) to use the entire arguments string
-
-    Options:
-      -m --make-hostfile     Generate a template ssh_hosts.yml
-      -e --edit-hostfile     Open the currently used ssh_hosts.yml file for editing
-      -l --list              Show hosts in ./ssh_hosts.yml or ~/ssh_hosts.yml
-      -h --help              Show this screen
-      -v --version           Show version
-
-    Examples:
-      jossh :production "git status"
-      jossh jack@server.com "cd ~ && ls -l"
-      jossh server.com deploy
-      jossh server.com rake -- db:migrate
-
+---
 
 ## Library Usage
 
@@ -162,4 +125,58 @@ You can ask Jossh to create a sample file for you by running:
 
     $ jossh --make-hostfile
 
+### Working with Multiple Hosts
+
+Define multiple hosts in the `ssh_hosts.yml` file by simply providing an array
+of other keys:
+
+```yaml
+:web01:
+  :host: web01.server.com
+  :user: admin
+
+:web02:
+  :host: web02.server.com
+  :user: admin
+
+:production: 
+  - :web01
+  - :web02
+```
+
 See [ssh_hosts.example.yml](https://github.com/DannyBen/jossh/blob/master/ssh_hosts.example.yml) as an example.
+
+## Writing Scripts
+
+The scripts you execute with Jossh are simple shell scripts. These variables 
+are available to you inside the script:
+
+### `$1 - $9 and $@ or $*`
+
+When running through the command line and using the 
+`jossh <host> <script> -- <arguments>` syntax, these variables hold the 
+arguments.
+
+`$@` and `$*` hold the entire arguments string.
+
+Example: 
+```bash
+# myscript
+echo "-> Running requested rake task"
+rake $@
+```
+
+And call it with:
+`$ jossh :host myscript -- db:migrate`
+
+
+
+### `%{key}`
+When this syntax appears in your script, it will be replaced with any key
+from the host configuration. 
+
+Example: 
+```bash
+echo "-> Migrating database on %{host}"
+rake db:migrate
+```

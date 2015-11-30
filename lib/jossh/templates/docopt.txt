@@ -11,7 +11,7 @@ Usage:
 Arguments:
   <host>
     can be:
-    - :symbol    : in this case we will look in ./ssh_hosts.yml
+    - :symbol    : in this case we will look in ./ssh_hosts.yml or ~/ssh_hosts.yml
     - host       : in this case we will use the current logged in user
     - user@host
 

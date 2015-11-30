@@ -20,13 +20,12 @@ module Jossh
       callback ||= method :simple_puts
       script   = script.join "\n" if script.is_a? Array
       hostspec = load_spec(hostspec) if hostspec.is_a? Symbol
-      host     = hostspec.delete :host
-      user     = hostspec.delete :user
-
-      Net::SSH.start( host, user, hostspec ) do |ssh| 
-        ssh.exec! script do |_ch, stream, data|
-          callback.call data, stream
+      if hostspec.is_a? Array
+        hostspec.each do |spec|
+          execute_ssh_script spec, script, callback
         end
+      else
+        execute_ssh_script hostspec, script, callback
       end
     end
 
@@ -63,6 +62,17 @@ module Jossh
 
     private
 
+    def execute_ssh_script(hostspec, script, callback)
+      script = script % hostspec
+      host   = hostspec.delete :host
+      user   = hostspec.delete :user
+      Net::SSH.start( host, user, hostspec ) do |ssh| 
+        ssh.exec! script do |_ch, stream, data|
+          callback.call data, stream
+        end
+      end
+    end
+
     def simple_puts(data, stream)
       if stream == :stderr
         STDERR.puts data
@@ -72,7 +82,18 @@ module Jossh
     end
 
     def load_spec(key)
-      ssh_hosts[key] or raise "Cannot find :#{key}"
+      hostspec = ssh_hosts[key]
+      return hostspec if hostspec.is_a? Hash 
+      if hostspec.is_a? Array
+        hostspecs = []
+        hostspec.each do |inner_key|
+          inner_hostspec = load_spec(inner_key)
+          inner_hostspec or raise "Cannot find :#{inner_key} in :#{key}"
+          hostspecs << inner_hostspec
+        end
+        return hostspecs
+      end
+      raise "Cannot find :#{key}"
     end
 
     def load_ssh_hosts
