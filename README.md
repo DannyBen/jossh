@@ -164,7 +164,7 @@ You can ask Jossh to create a sample file for you by running:
 
     $ jossh --make-hostfile
 
-### Working with Multiple Hosts
+## Working with Multiple Hosts
 
 Define multiple hosts in the `ssh_hosts.yml` file by simply providing an array
 of other keys:
