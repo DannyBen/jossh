@@ -71,7 +71,11 @@ module Jossh
       if runner.active_hostfile
         say "!txtgrn!Using: #{runner.active_hostfile}\n"
         runner.ssh_hosts.each do |key, spec|
-          say "  :#{key.to_s.ljust(14)} = !txtblu!#{spec[:user]}!txtrst!@!txtylw!#{spec[:host]}"
+          if spec.is_a? Hash
+            say "  :#{key.to_s.ljust(14)} = !txtblu!#{spec[:user]}!txtrst!@!txtylw!#{spec[:host]}"
+          else
+            say "  :#{key.to_s.ljust(14)} = !txtpur!#{spec.join '!txtrst!, !txtpur!'}"
+          end
         end
       else
         say "!txtred!Cannot find ssh_hosts.yml or ~/ssh_hosts.yml"

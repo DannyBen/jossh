@@ -51,6 +51,7 @@ class TestBin < MiniTest::Test
     actual = run_bin(["-l"])
     assert_contains 'Using: ssh_hosts.yml', actual
     assert_contains ':localhost', actual
+    assert_match /:production.*localhost.*,.*dev1/, actual
   end
 
   def test_list_not_found
