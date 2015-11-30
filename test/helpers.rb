@@ -7,9 +7,10 @@ require_relative '../lib/jossh'
 
 Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
 
+# ENV['RUBY_ENV'] = 'test'
+
 module Minitest::Assertions
   def assert_contains(expected, actual)
-    # p actual; p "---"; p expected;exit
     assert actual.include?(expected), "String '#{actual}' does not contain '#{expected}'"
   end
 end
