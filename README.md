@@ -42,7 +42,46 @@ commands or a local script over SSH.
 
     $ jossh -h
 
-    hello
+    Jossh
+    
+    Usage:
+      jossh <host> <script> [-- <arguments>...]
+      jossh -m | --make-hostfile
+      jossh -e | --edit-hostfile
+      jossh -l | --list
+      jossh -h | --help 
+      jossh -v | --version
+    
+    Arguments:
+      <host>
+        can be:
+        - :symbol    : in this case we will look in ./ssh_hosts.yml or ~/ssh_hosts.yml
+        - host       : in this case we will use the current logged in user
+        - user@host
+    
+      <script> 
+        can be:
+        - a filename
+        - one or more direct command
+    
+      <arguments>...
+        When specifying a filename as the <script>, you may also pass additional
+        arguments to it. 
+        Use $1 - $9 in your script file to work with these arguments.
+        Use $@ (or $*) to use the entire arguments string
+    
+    Options:
+      -m --make-hostfile     Generate a template ssh_hosts.yml 
+      -e --edit-hostfile     Open the currently used ssh_hosts.yml file for editing
+      -l --list              Show hosts in ./ssh_hosts.yml or ~/ssh_hosts.yml
+      -h --help              Show this screen
+      -v --version           Show version
+    
+    Examples: 
+      jossh :production "git status"
+      jossh jack@server.com "cd ~ && ls -l"
+      jossh server.com deploy
+      jossh server.com rake -- db:migrate
 
 ---
 
