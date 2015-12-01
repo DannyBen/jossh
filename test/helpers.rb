@@ -7,6 +7,8 @@ require_relative '../lib/jossh'
 
 Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
 
+File.exist? "#{Dir.home}/ssh_hosts.yml" and abort "Abort: Please rename ~/ssh_hosts.yml before running tests"
+
 # ENV['RUBY_ENV'] = 'test'
 
 module Minitest::Assertions

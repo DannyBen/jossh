@@ -57,4 +57,12 @@ class TestApi < MiniTest::Test
     ssh_hostfile :default
   end
 
+  def test_invalid_hostfile_key
+    assert_raises(RuntimeError) { run_ssh("echo 'hello'", host: :notfound) }
+  end
+
+  def test_multi_hosts
+    assert_match /hello.*hello/m, run_ssh("echo 'hello'", host: :multi)
+  end
+
 end
