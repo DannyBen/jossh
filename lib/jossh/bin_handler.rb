@@ -33,6 +33,8 @@ module Jossh
       begin
         if File.exist? script
           ssh_script! host, script, arguments: arguments
+        elsif File.exist? "#{Dir.home}/jossh/#{script}"
+          ssh_script! host, "#{Dir.home}/jossh/#{script}", arguments: arguments
         else
           ssh host, script
         end

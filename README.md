@@ -61,7 +61,8 @@ commands or a local script over SSH.
     
       <script> 
         can be:
-        - a filename
+        - a file in the current directory
+        - a file in ~/jossh directory
         - one or more direct command
     
       <arguments>...

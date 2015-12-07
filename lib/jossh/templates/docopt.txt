@@ -17,7 +17,8 @@ Arguments:
 
   <script> 
     can be:
-    - a filename
+    - a file in the current directory
+    - a file in ~/jossh directory
     - one or more direct command
 
   <arguments>...

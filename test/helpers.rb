@@ -68,3 +68,7 @@ end
 def user_hostfile
   "#{Dir.home}/ssh_hosts_test.yml"
 end
+
+def dir_empty?(path)
+  (Dir.entries(path) - %w{ . .. }).empty?
+end

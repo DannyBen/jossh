@@ -17,6 +17,15 @@ class TestBin < MiniTest::Test
     assert_contains expected, run_bin([":localhost", "test/fixtures/script1"])
   end
 
+  def test_script_in_home_dir
+    home = "#{Dir.home}/jossh"
+    FileUtils.mkdir_p home
+    FileUtils.copy "test/fixtures/script3", "#{home}/script3"
+    assert_contains "kaboom", run_bin([":localhost", "script3"])
+    FileUtils.rm "#{home}/script3"
+    FileUtils.rmdir home if dir_empty? home
+  end
+
   def test_script_with_arguments
     expected = "alpha: hello w o r l d\n       bravo: hello w o r l d\n       charlie:\n"
     assert_contains expected, run_bin([":localhost", "test/fixtures/script2", "--", "hello", "w o r l d"])
