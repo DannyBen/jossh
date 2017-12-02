@@ -1,5 +1,6 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'date'
 require 'jossh/version'
 
 Gem::Specification.new do |s|
@@ -17,7 +18,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0'
 
   s.add_runtime_dependency 'colsole', '~> 0.2'
-  s.add_runtime_dependency 'net-ssh', '~> 3.0'
+  s.add_runtime_dependency 'net-ssh', '~> 4.0'
   s.add_runtime_dependency 'docopt', '~> 0.5'
 
   s.add_development_dependency 'runfile', '~> 0.5'
