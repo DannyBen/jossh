@@ -3,7 +3,6 @@ Jossh - Your SSH Buddy
 
 [![Gem](https://img.shields.io/gem/v/jossh.svg?style=flat-square)](https://rubygems.org/gems/jossh)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/jossh.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/jossh)
-[![Issues](https://img.shields.io/codeclimate/issues/DannyBen/jossh.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/jossh)
 [![Gemnasium](https://img.shields.io/gemnasium/DannyBen/jossh.svg?style=flat-square)](https://gemnasium.com/DannyBen/jossh)
 
 
