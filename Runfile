@@ -1,12 +1,11 @@
-require "run-gem-dev"
+require "runfile-tasks"
 
-name    "Jossh Runfile"
+title   "Jossh Runfile"
 summary "Runfile tasks for building the Jossh gem"
 version Jossh::VERSION
 
-RunGemDev::gem_tasks 'jossh'
-RunGemDev::minitest_tasks
-RunGemDev::rdoc_tasks
+RunfileTasks::RubyGems.all 'jossh'
+RunfileTasks::Testing.minitest './test/test_*.rb'
 
 help   "Regenerate the command line output in the README file"
 action :patchme do
