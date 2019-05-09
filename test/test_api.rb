@@ -29,7 +29,8 @@ class TestApi < MiniTest::Test
 
   def test_script
     expected = "\e[0;32m----->\e[0m Status example\n       \e[0;35m$ command example\n\e[0m  \e[0;33m!\e[0m    \e[0;31mERROR example\n\e[0m       regular output\n         indentation\n           is\n             kept\n               tabs are converted to 8 spaces\n\e[0;32m----->\e[0m Done\n       \e[0;31mstderr output\n\e[0m"
-    assert_match expected, run_ssh_script!('script1')
+    actual = run_ssh_script!('script1')
+    assert_match expected, actual
   end
 
   def test_unformatted_script
